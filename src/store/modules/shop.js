@@ -17,10 +17,11 @@ const getter = {
 
 }
 const actions = {
-  async getShopGoods({commit}) {
+  async getShopGoods({commit},cb) {
     const result = await reqShopGoods()
     if(result.code===0) {
       commit(RESEIVE_SHOPGOODS,result.data)
+      typeof cb && cb()
     }
   },
   async getShopRatings({commit}) {
