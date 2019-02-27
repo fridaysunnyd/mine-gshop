@@ -36,7 +36,7 @@ const actions = {
     }
   },
 }
-const mutation = {
+const mutations = {
   [RESEIVE_SHOPGOODS] (state,data) {
     state.shopGoods = data
   },
@@ -50,6 +50,6 @@ const mutation = {
 export default {
   state,
   actions,
-  mutation,
+  mutations,
   getter
 }

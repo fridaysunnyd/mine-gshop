@@ -1,12 +1,134 @@
 <template>
-  <div>
-    shopHeader
+  <div class="shop-header" >
+    <nav class="shop-nav"
+         :style="{backgroundImage: `url(${info.bgImg})`}">
+      <a class="back" @click="$router.back()">
+        <i class="iconfont icon-arrow_left"/>
+      </a>
+    </nav>
+    <div class="shop-content" @click="showBulletin=true">
+      <img :src="info.avatar" class="content-image">
+      <div class="header-content">
+        <h2 class="content-title">
+          <span class="content-tag">
+            <span class="mini-tag">品牌</span>
+          </span>
+          <span class="content-name">{{info.name}}</span>
+          <i class="content-icon"></i>
+        </h2>
+        <div class="shop-message">
+          <span class="shop-message-detail">{{info.score}}</span>
+          <span class="shop-message-detail">月售{{info.sellCount}}单</span>
+          <span class="shop-message-detail">
+            {{info.description}}
+            <span>约{{info.deliveryTime}}分钟</span>
+          </span>
+          <span class="shop-message-detail">距离{{info.distance}}</span>
+        </div>
+        <p class="shop-notice">{{info.bulletin}}</p>
+      </div>
+    </div>
+
+    <div class="shop-header-discounts" v-if="info.name" @click="showSupports=true">
+      <div class="discounts-left">
+        <div class="activity" :class="supportClasses[info.supports[0].type]">
+          <span class="content-tag">
+            <span class="mini-tag">{{info.supports[0].name}}</span>
+          </span>
+          <span class="activity-content ellipsis">{{info.supports[0].content}}</span>
+        </div>
+      </div>
+      <div class="discounts-right">
+        {{info.supports.length}}个优惠
+      </div>
+    </div>
+
+    <transition name="fade">
+      <div class="shop-brief-modal" v-show="showBulletin">
+        <div class="brief-modal-content">
+          <h2 class="content-title">
+          <span class="content-tag">
+            <span class="mini-tag">品牌</span>
+          </span>
+            <span class="content-name">{{info.name}}</span>
+          </h2>
+          <ul class="brief-modal-msg">
+            <li>
+              <h3>{{info.score}}</h3>
+              <p>评分</p>
+            </li>
+            <li>
+              <h3>{{info.sellCount}}单</h3>
+              <p>月售</p>
+            </li>
+            <li>
+              <h3>{{info.description}}</h3>
+              <p>约{{info.deliveryTime}}分钟</p>
+            </li>
+            <li>
+              <h3>{{info.deliveryPrice}}元</h3>
+              <p>配送费用</p>
+            </li>
+            <li>
+              <h3>{{info.distance}}</h3>
+              <p>距离</p>
+            </li>
+          </ul>
+          <h3 class="brief-modal-title">
+            <span>公告</span></h3>
+          <div class="brief-modal-notice">
+            {{info.bulletin}}
+          </div>
+          <div class="mask-footer" @click="showBulletin=false">
+            <span class="iconfont icon-close"></span>
+          </div>
+        </div>
+        <div class="brief-modal-cover"></div>
+      </div>
+    </transition>
+
+
+    <div class="activity-sheet" v-show="showSupports">
+      <div class="activity-sheet-content">
+        <h2 class="activity-sheet-title">优惠活动</h2>
+        <ul class="list">
+          <li class="activity-item" :class="supportClasses[support.type]" v-for="(support, index) in info.supports" :key="index">
+            <span class="content-tag">
+              <span class="mini-tag">{{support.name}}</span>
+            </span>
+            <span class="activity-content">{{support.content}}</span>
+          </li>
+
+        </ul>
+        <div class="activity-sheet-close" @click="showSupports=false">
+          <span class="iconfont icon-close"></span>
+        </div>
+      </div>
+      <div class="activity-sheet-cover"></div>
+    </div>
   </div>
 </template>
 
-<script>
 
-  export default {}
+<script>
+  import {mapState} from 'vuex'
+  export default {
+
+    data () {
+      return {
+        showBulletin: false, // 是否显示公告相关
+        showSupports: false, // 是否显示优惠列表
+        supportClasses: ['activity-green', 'activity-red', 'activity-orange']
+      }
+    },
+
+    computed: {
+      ...mapState({
+        info: state => state.shop.shopInfo
+      })
+    },
+
+  }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
