@@ -6,7 +6,10 @@ import {
   RECEIVE_CATEGORYS,
   RECEIVE_ADDRESS,
   RECEIVE_USER,
-  RESET_USER
+  RESET_USER,
+  RESEIVE_SHOPGOODS,
+  RESEIVE_SHOPRATINGS,
+  RESEIVE_SHOPINFO
 } from './mutation-types'
 
 export default {
@@ -25,4 +28,14 @@ export default {
   [RESET_USER] (state) {
     state.user = {}
   },
+  [RESEIVE_SHOPGOODS] (state,data) {
+    state.shopGoods = data
+  },
+  [RESEIVE_SHOPRATINGS] (state,data) {
+    state.shopRatings = data
+  },
+  [RESEIVE_SHOPINFO] (state,data) {
+    state.shopInfo = data
+  },
+
 }

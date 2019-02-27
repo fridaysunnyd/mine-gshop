@@ -6,14 +6,20 @@ import {
   reqAddress,
   reqCategorys,
   reqUser,
-  reqLogout
+  reqLogout,
+  reqShopGoods,
+  reqShopRatings,
+  reqShopInfo
 } from '../api'
 import {
   RECEIVE_SHOPS,
   RECEIVE_CATEGORYS,
   RECEIVE_ADDRESS,
   RECEIVE_USER,
-  RESET_USER
+  RESET_USER,
+  RESEIVE_SHOPGOODS,
+  RESEIVE_SHOPRATINGS,
+  RESEIVE_SHOPINFO
 } from './mutation-types'
 
 export default {
@@ -69,6 +75,24 @@ export default {
     const result = await reqLogout()
     if(result.code===0) {
       commit(RESET_USER)
+    }
+  },
+  async getShopGoods({commit}) {
+    const result = await reqShopGoods()
+    if(result.code===0) {
+      commit(RESEIVE_SHOPGOODS,result.data)
+    }
+  },
+  async getShopRatings({commit}) {
+    const result = await reqShopRatings()
+    if(result.code===0) {
+      commit(RESEIVE_SHOPRATINGS,result.data)
+    }
+  },
+  async getShopInfo({commit}) {
+    const result = await reqShopInfo()
+    if(result.code===0) {
+      commit(RESEIVE_SHOPINFO,result.data)
     }
   },
 }
