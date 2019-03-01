@@ -34,7 +34,7 @@
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    cardContron
+                    <CardControl :food="food"/>
                   </div>
                 </div>
               </li>
@@ -49,6 +49,7 @@
 <script>
   import {mapState} from 'vuex'
   import BScroll from 'better-scroll'
+  import CardControl from '../../../components/CardControl/CardControl.vue'
   export default {
     data(){
       return {
@@ -85,10 +86,10 @@
     methods:{
       _initScroll(){
         this.leftScroll = new BScroll('.menu-wrapper',{
-
+          click:true
         })
         this.rightScroll = new BScroll('.foods-wrapper',{
-
+          click:true
         })
         this.rightScroll.on('scrollEnd', ({x, y}) => {
           this.scrollY = Math.abs(y)
@@ -110,6 +111,9 @@
         this.scrollY = top
         this.rightScroll.scrollTo(0, -top, 500)
       }
+    },
+    components:{
+      CardControl
     }
 
   }

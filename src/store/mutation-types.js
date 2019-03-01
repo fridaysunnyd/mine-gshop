@@ -9,3 +9,5 @@ export const RESET_USER = 'reset_user'  // 重置用户
 export const RESEIVE_SHOPGOODS = 'reseive_shopgoods'
 export const RESEIVE_SHOPRATINGS = 'reseive_shopratings'
 export const RESEIVE_SHOPINFO = 'reseive_shopinfo'
+export const ADD_FOOD_COUNT = 'add_food_count' // 增加food数量
+export const REDUCE_FOOD_COUNT = 'reduce_food_count' // 减少food数量

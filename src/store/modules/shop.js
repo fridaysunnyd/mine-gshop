@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import {
   reqShopGoods,
   reqShopRatings,
@@ -6,7 +7,9 @@ import {
 import {
   RESEIVE_SHOPGOODS,
   RESEIVE_SHOPRATINGS,
-  RESEIVE_SHOPINFO
+  RESEIVE_SHOPINFO,
+  ADD_FOOD_COUNT,
+  REDUCE_FOOD_COUNT
 } from '../mutation-types'
 const state = {
   shopGoods:[],
@@ -36,6 +39,13 @@ const actions = {
       commit(RESEIVE_SHOPINFO,result.data)
     }
   },
+  updateFoodCount({commit},{isAdd,food}){
+    if (isAdd) {
+      commit(ADD_FOOD_COUNT, food)
+    } else {
+      commit(REDUCE_FOOD_COUNT, food)
+    }
+  }
 }
 const mutations = {
   [RESEIVE_SHOPGOODS] (state,data) {
@@ -46,6 +56,18 @@ const mutations = {
   },
   [RESEIVE_SHOPINFO] (state,data) {
     state.shopInfo = data
+  },
+  [ADD_FOOD_COUNT] (state,data) {
+    if (data.count) {
+      data.count++
+    } else {
+      Vue.set(data, 'count', 1)
+    }
+  },
+  [REDUCE_FOOD_COUNT] (state,data) {
+    if(data.count > 0){
+      data.count--
+    }
   },
 }
 export default {
