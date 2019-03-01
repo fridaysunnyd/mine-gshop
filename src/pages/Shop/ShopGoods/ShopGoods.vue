@@ -19,7 +19,7 @@
             <h1 class="title">{{c.name}}</h1>
             <ul>
               <li class="food-item bottom-border-1px" v-for="(food, index) in c.foods"
-                  :key="index" >
+                  :key="index" @click="showFood(food)">
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon">
                 </div>
@@ -43,6 +43,7 @@
         </ul>
       </div>
     </div>
+    <Food ref="food" :food="food"/>
   </div>
 </template>
 
@@ -50,11 +51,13 @@
   import {mapState} from 'vuex'
   import BScroll from 'better-scroll'
   import CardControl from '../../../components/CardControl/CardControl.vue'
+  import Food from '../../../components/Food/Food.vue'
   export default {
     data(){
       return {
         scrollY:0,
         tops:[],
+        food:{}
       }
     },
     computed:{
@@ -110,10 +113,15 @@
         const top = this.tops[index]
         this.scrollY = top
         this.rightScroll.scrollTo(0, -top, 500)
-      }
+      },
+      showFood(food){
+        this.food = food
+        this.$refs.food.toggle()
+      },
     },
     components:{
-      CardControl
+      CardControl,
+      Food
     }
 
   }
