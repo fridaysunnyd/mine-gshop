@@ -29,7 +29,6 @@
 
 
 <script>
-  import CardControl from'../CardControl/CardControl.vue'
   export default {
     props:{
       food:Object
@@ -44,9 +43,6 @@
         this.isShow=!this.isShow
       }
     },
-    components:{
-      CardControl
-    }
   }
 </script>
 

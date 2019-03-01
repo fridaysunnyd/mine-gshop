@@ -11,3 +11,4 @@ export const RESEIVE_SHOPRATINGS = 'reseive_shopratings'
 export const RESEIVE_SHOPINFO = 'reseive_shopinfo'
 export const ADD_FOOD_COUNT = 'add_food_count' // 增加food数量
 export const REDUCE_FOOD_COUNT = 'reduce_food_count' // 减少food数量
+export const CLEARCART = 'clearcart'

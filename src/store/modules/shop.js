@@ -9,15 +9,25 @@ import {
   RESEIVE_SHOPRATINGS,
   RESEIVE_SHOPINFO,
   ADD_FOOD_COUNT,
-  REDUCE_FOOD_COUNT
+  REDUCE_FOOD_COUNT,
+  CLEARCART
 } from '../mutation-types'
 const state = {
   shopGoods:[],
   shopRatings:[],
-  shopInfo:{}
+  shopInfo:{},
+  cardFoods:[]
 }
-const getter = {
+const getters = {
+// 总数量
+  totalFoodCount (state) {
+    return state.cardFoods.reduce((pre, item) => pre + item.count, 0)
+  },
 
+  // 总价格
+  totalFoodPrice (state) {
+    return state.cardFoods.reduce((pre, item) => pre + item.count*item.price, 0)
+  },
 }
 const actions = {
   async getShopGoods({commit},cb) {
@@ -45,6 +55,9 @@ const actions = {
     } else {
       commit(REDUCE_FOOD_COUNT, food)
     }
+  },
+  clearCart({commit}){
+    commit(CLEARCART)
   }
 }
 const mutations = {
@@ -62,17 +75,26 @@ const mutations = {
       data.count++
     } else {
       Vue.set(data, 'count', 1)
+      state.cardFoods.push(data)
     }
   },
   [REDUCE_FOOD_COUNT] (state,data) {
     if(data.count > 0){
       data.count--
+      if(data.count === 0){
+        const index = state.cardFoods.indexOf(data)
+        state.cardFoods.splice(index,1)
+      }
     }
+  },
+  [CLEARCART] (state) {
+    state.cardFoods.forEach((food,index) => food.count = 0 )
+    state.cardFoods = []
   },
 }
 export default {
   state,
   actions,
   mutations,
-  getter
+  getters
 }
