@@ -37,11 +37,12 @@ const actions = {
       typeof cb && cb()
     }
   },
-  async getShopRatings({commit}) {
+  async getShopRatings({commit},cb) {
     const result = await reqShopRatings()
     if(result.code===0) {
       commit(RESEIVE_SHOPRATINGS,result.data)
     }
+    cb()
   },
   async getShopInfo({commit}) {
     const result = await reqShopInfo()
